@@ -33,6 +33,10 @@ public class Packet<T extends PacketContent> {
         }.getGenericType());
         return packet;
     }
+    
+    public static Handshake deserializeHandshake(String json) {
+        return new Handshake(JsonParser.parseString(json).getAsJsonObject().get("version").getAsInt());
+    }
 
     public String serialize() {
         JsonObject jsonObject = new JsonObject();
