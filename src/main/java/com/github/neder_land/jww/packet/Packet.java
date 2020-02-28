@@ -1,10 +1,7 @@
 package com.github.neder_land.jww.packet;
 
 import com.google.common.reflect.TypeToken;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.google.gson.*;
 
 import java.lang.reflect.Type;
 
@@ -16,8 +13,8 @@ public class Packet<T extends PacketContent> {
     private T content;
 
     /*
-    We have this to fetch our generic type.
-    */
+    Preserved for further usage
+     */
     private Packet() {
     }
 
@@ -26,14 +23,18 @@ public class Packet<T extends PacketContent> {
     }
 
     public static <E extends PacketContent> Packet<E> deserialize(String json) {
-        JsonObject jsonObject = JsonParser.parseString(json).getAsJsonObject();
+        return deserialize(JsonParser.parseString(json));
+    }
+
+    public static <E extends PacketContent> Packet<E> deserialize(JsonElement json) {
+        JsonObject jsonObject = json.getAsJsonObject();
         Packet<E> packet = new Packet<>();
         packet.action = jsonObject.get("action").getAsString();
         packet.content = GSON.fromJson(jsonObject.getAsJsonObject("content"), new TypeHolder<E>() {
         }.getGenericType());
         return packet;
     }
-    
+
     public static Handshake deserializeHandshake(String json) {
         return new Handshake(JsonParser.parseString(json).getAsJsonObject().get("version").getAsInt());
     }
@@ -51,6 +52,7 @@ public class Packet<T extends PacketContent> {
 
     private static abstract class TypeHolder<E> {
         public Type getGenericType() {
+            //noinspection UnstableApiUsage
             return new TypeToken<E>(getClass()) {
             }.getType();
         }

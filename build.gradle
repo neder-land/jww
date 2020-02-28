@@ -18,3 +18,13 @@ dependencies {
     implementation("com.google.guava:guava:28.2-jre")
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    //noinspection GrDeprecatedAPIUsage
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives sourcesJar
+}
