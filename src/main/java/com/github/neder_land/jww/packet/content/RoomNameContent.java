@@ -1,11 +1,13 @@
 package com.github.neder_land.jww.packet.content;
 
 import com.github.neder_land.jww.packet.PacketContent;
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class RoomNameContent extends PacketContent {
 
     @SerializedName("room_name")
+    @Expose
     private String roomName;
 
     public RoomNameContent(String action, String room) {

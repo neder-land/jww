@@ -2,10 +2,13 @@ package com.github.neder_land.jww.packet.content;
 
 import com.github.neder_land.jww.packet.PacketContent;
 import com.github.neder_land.jww.packet.content.enums.UserStatus;
+import com.google.gson.annotations.Expose;
 
 public class UserStatusContent extends PacketContent {
 
+    @Expose
     private UserStatus what;
+    @Expose
     private String who;
 
     public UserStatusContent(String action, UserStatus status, String target) {

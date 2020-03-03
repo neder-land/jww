@@ -1,13 +1,10 @@
 package com.github.neder_land.jww.packet;
 
-import com.google.common.reflect.TypeToken;
 import com.google.gson.*;
-
-import java.lang.reflect.Type;
 
 public class Packet<T extends PacketContent> {
 
-    public static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+    public static final Gson GSON = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
 
     private String action;
     private T content;
@@ -20,18 +17,18 @@ public class Packet<T extends PacketContent> {
 
     protected Packet(T content) {
         this.action = content.getAction();
+        this.content = content;
     }
 
-    public static <E extends PacketContent> Packet<E> deserialize(String json) {
-        return deserialize(JsonParser.parseString(json));
+    public static <E extends PacketContent> Packet<E> deserialize(String json, Class<E> clazz) {
+        return deserialize(JsonParser.parseString(json), clazz);
     }
 
-    public static <E extends PacketContent> Packet<E> deserialize(JsonElement json) {
+    public static <E extends PacketContent> Packet<E> deserialize(JsonElement json, Class<E> clazz) {
         JsonObject jsonObject = json.getAsJsonObject();
         Packet<E> packet = new Packet<>();
         packet.action = jsonObject.get("action").getAsString();
-        packet.content = GSON.fromJson(jsonObject.getAsJsonObject("content"), new TypeHolder<E>() {
-        }.getGenericType());
+        packet.content = GSON.fromJson(jsonObject.getAsJsonObject("content"), clazz);
         return packet;
     }
 
@@ -48,13 +45,5 @@ public class Packet<T extends PacketContent> {
 
     public T getContent() {
         return content;
-    }
-
-    private static abstract class TypeHolder<E> {
-        public Type getGenericType() {
-            //noinspection UnstableApiUsage
-            return new TypeToken<E>(getClass()) {
-            }.getType();
-        }
     }
 }

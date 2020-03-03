@@ -11,67 +11,67 @@ public abstract class Decoder {
         String action = element.getAsJsonObject().get("action").getAsString();
         switch (action) {
             case Packets.BREAK_FAIL:
-                handleBreakFail(Packet.<ReasonContent>deserialize(element).getContent());
+                handleBreakFail(Packet.deserialize(element, ReasonContent.class).getContent());
                 break;
             case Packets.CREATE:
-                handleCreate(Packet.<RoomCreationContent>deserialize(element).getContent());
+                handleCreate(Packet.deserialize(element, RoomCreationContent.class).getContent());
                 break;
             case Packets.CREATE_FAIL:
-                handleCreateFail(Packet.<ReasonContent>deserialize(element).getContent());
+                handleCreateFail(Packet.deserialize(element, ReasonContent.class).getContent());
                 break;
             case Packets.CREATE_SUCCESS:
-                handleCreateSuccess(Packet.<RoomCreationContent>deserialize(element).getContent());
+                handleCreateSuccess(Packet.deserialize(element, RoomCreationContent.class).getContent());
                 break;
             case Packets.DISCONNECT:
                 handleDisconnect();
                 break;
             case Packets.JOIN:
-                handleJoin(Packet.<RoomNameContent>deserialize(element).getContent());
+                handleJoin(Packet.deserialize(element, RoomNameContent.class).getContent());
                 break;
             case Packets.JOIN_FAIL:
-                handleJoinFail(Packet.<ReasonContent>deserialize(element).getContent());
+                handleJoinFail(Packet.deserialize(element, ReasonContent.class).getContent());
                 break;
             case Packets.JOIN_SUCCESS:
-                handleJoinSuccess(Packet.<DetailedRoomContent>deserialize(element).getContent());
+                handleJoinSuccess(Packet.deserialize(element, DetailedRoomContent.class).getContent());
                 break;
             case Packets.LEAVE_FAIL:
-                handleLeaveFail(Packet.<ReasonContent>deserialize(element).getContent());
+                handleLeaveFail(Packet.deserialize(element, ReasonContent.class).getContent());
                 break;
             case Packets.LIST_ROOM_RESPONSE:
-                handleListRoomResponse(Packet.<RoomListContent>deserialize(element).getContent());
+                handleListRoomResponse(Packet.deserialize(element, RoomListContent.class).getContent());
                 break;
             case Packets.LIST_ROOMS:
-                handleListRooms(Packet.<GameTypeContent>deserialize(element).getContent());
+                handleListRooms(Packet.deserialize(element, GameTypeContent.class).getContent());
                 break;
             case Packets.LIST_TYPE_RESPONSE:
-                handleListTypeResponse(Packet.<GameTypeListContent>deserialize(element).getContent());
+                handleListTypeResponse(Packet.deserialize(element, GameTypeListContent.class).getContent());
                 break;
             case Packets.LIST_TYPES:
                 handleListTypes();
                 break;
             case Packets.LOGIN:
-                handleLogin(Packet.<UsernameContent>deserialize(element).getContent());
+                handleLogin(Packet.deserialize(element, UsernameContent.class).getContent());
                 break;
             case Packets.LOGIN_CANCEL:
-                handleLoginCancel(Packet.<ReasonContent>deserialize(element).getContent());
+                handleLoginCancel(Packet.deserialize(element, ReasonContent.class).getContent());
                 break;
             case Packets.LOGOUT:
                 handleLogout();
                 break;
             case Packets.ROOM_OPERATION:
-                handleRoomOperation(Packet.<RoomOperationContent>deserialize(element).getContent());
+                handleRoomOperation(Packet.deserialize(element, RoomOperationContent.class).getContent());
                 break;
             case Packets.ROOM_STATUS_CHANGE:
-                handleRoomStatusChange(Packet.<RoomStatusContent>deserialize(element).getContent());
+                handleRoomStatusChange(Packet.deserialize(element, RoomStatusContent.class).getContent());
                 break;
             case Packets.USER_ACTION:
-                handleUserAction(Packet.<UserActionContent>deserialize(element).getContent());
+                handleUserAction(Packet.deserialize(element, UserActionContent.class).getContent());
                 break;
             case Packets.USER_OPERATION:
-                handleUserOperation(Packet.<UserOperationContent>deserialize(element).getContent());
+                handleUserOperation(Packet.deserialize(element, UserOperationContent.class).getContent());
                 break;
             case Packets.USER_STATUS_CHANGE:
-                handleUserStatusChange(Packet.<UserStatusContent>deserialize(element).getContent());
+                handleUserStatusChange(Packet.deserialize(element, UserStatusContent.class).getContent());
                 break;
             default:
                 extraDecode(action, element);

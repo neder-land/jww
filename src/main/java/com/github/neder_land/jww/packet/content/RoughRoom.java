@@ -1,14 +1,20 @@
 package com.github.neder_land.jww.packet.content;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class RoughRoom {
 
+    @Expose
     private String name;
+    @Expose
     private String owner;
+    @Expose
     private int people;
     @SerializedName("in_game")
+    @Expose
     private boolean inGame;
+    @Expose
     private String game;
 
     public RoughRoom(String name, String owner, int people, boolean inGame, String game) {

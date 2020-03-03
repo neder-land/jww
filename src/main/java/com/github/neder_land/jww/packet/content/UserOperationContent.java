@@ -2,12 +2,15 @@ package com.github.neder_land.jww.packet.content;
 
 import com.github.neder_land.jww.packet.PacketContent;
 import com.github.neder_land.jww.packet.content.enums.UserOperation;
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class UserOperationContent extends PacketContent {
 
     @SerializedName("intend_to")
+    @Expose
     private UserOperation userOperation;
+    @Expose
     private String target;
 
     public UserOperationContent(String action, UserOperation operation, String target) {

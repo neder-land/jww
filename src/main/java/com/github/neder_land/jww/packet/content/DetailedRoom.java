@@ -1,16 +1,22 @@
 package com.github.neder_land.jww.packet.content;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
 public class DetailedRoom {
 
+    @Expose
     private String name;
+    @Expose
     private String owner;
+    @Expose
     private List<String> people;
     @SerializedName("in_game")
+    @Expose
     private boolean inGame;
+    @Expose
     private String game;
 
     public DetailedRoom(String name, String owner, List<String> people, boolean inGame, String game) {

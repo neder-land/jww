@@ -2,11 +2,13 @@ package com.github.neder_land.jww.packet.content;
 
 import com.github.neder_land.jww.packet.PacketContent;
 import com.github.neder_land.jww.packet.content.enums.UserAction;
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class UserActionContent extends PacketContent {
 
     @SerializedName("intend_to")
+    @Expose
     private UserAction userAction;
 
     public UserActionContent(String action, UserAction userAction) {
